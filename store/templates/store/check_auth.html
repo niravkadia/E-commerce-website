@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-xl mx-auto bg-slate-900 p-12 rounded-3xl border border-slate-800 text-center shadow-2xl">
+    <h2 class="text-4xl font-bold text-white mb-6">Access Restricted</h2>
+    <p class="text-lg text-slate-400 mb-8">If you want to access this page, then please log in.</p>
+    <a href="{% url 'login' %}" class="bg-blue-600 text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-blue-500 transition">Go to Login</a>
+</div>
+{% endblock %}
