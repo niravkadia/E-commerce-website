@@ -14,8 +14,11 @@
             {% if request.path != '/' %}
                 <a href="/" class="text-slate-300 hover:text-white font-medium">Home</a>
             {% endif %}
+            {% if user.is_authenticated and user.is_superuser %}
+                <a href="/add-product/" class="text-slate-300 hover:text-white font-medium">Add Product</a>
+            {% endif %}
             {% if user.is_authenticated %}
-                <a href="#" class="text-slate-300 hover:text-white font-medium">Cart</a>
+                <a href="{% url 'cart_view' %}" class="text-slate-300 hover:text-white font-medium">Cart</a>
                 <a href="{% url 'logout' %}" class="bg-red-600 px-4 py-2 rounded-lg text-white font-medium hover:bg-red-700 transition">Logout</a>
             {% else %}
                 <a href="{% url 'login' %}" class="bg-blue-600 px-4 py-2 rounded-lg text-white font-medium hover:bg-blue-700 transition">Login</a>

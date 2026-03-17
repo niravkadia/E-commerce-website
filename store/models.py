@@ -30,6 +30,10 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
 
+    def recalculate_total(self):
+        self.total_price = sum(item.get_total_price() for item in self.items.all())
+        self.save()
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -38,3 +42,6 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name}"
+
+    def get_total_price(self):
+        return self.price * self.quantity
