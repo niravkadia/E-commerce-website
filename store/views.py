@@ -24,11 +24,14 @@ def cart_view(request):
 
 @login_required(login_url='check_auth')
 def payment_success(request):
-    order = Order.objects.get(user=request.user, status='Pending')
-    order.status = 'Completed'
-    order.save()
-    messages.success(request, 'Payment successful! Order completed.')
-    return redirect('product_list')
+    try:
+        order = Order.objects.get(user=request.user, status='Pending')
+        order.status = 'Completed'
+        order.save()
+    except Order.DoesNotExist:
+        # If user lands here without a pending order (already paid), just show success
+        pass
+    return render(request, 'store/payment_success.html')
 
 @login_required(login_url='check_auth')
 def product_list(request):
